@@ -1,5 +1,6 @@
 # FzqLib
 retrofit网络请求封装框架
+图片拍照,相册获取封装
 
 To get a Git project into your build:
 Step 1. Add the JitPack repository to your build file
