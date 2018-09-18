@@ -23,6 +23,6 @@ Step 2. Add the dependency
 
 	dependencies {
   
-	        compile 'com.github.f15997123593:RetrofitLib:v1.0'
+	        compile 'com.github.f15997123593:FzqLib:v1.0'
           
 	}
