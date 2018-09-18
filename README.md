@@ -23,6 +23,6 @@ Step 2. Add the dependency
 
 	dependencies {
   
-	        implementation 'com.github.f15997123593:fzqLib:v1.0'
+	        implementation 'com.github.f15997123593:fzqLib:1.1'
           
 	}
