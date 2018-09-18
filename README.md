@@ -22,6 +22,6 @@ Step 2. Add the dependency
 
 	dependencies {
   
-	        implementation 'com.github.f15997123593:RetrofitLib:releases'
+	        compile 'com.github.f15997123593:RetrofitLib:v1.0'
           
 	}
