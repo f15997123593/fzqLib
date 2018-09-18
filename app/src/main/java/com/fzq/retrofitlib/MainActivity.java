@@ -1,9 +1,11 @@
 package com.fzq.retrofitlib;
 
+import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.fzq.retrofitmanager.http.DataType;
 import com.fzq.retrofitmanager.http.HttpClient;
@@ -12,18 +14,32 @@ import com.fzq.retrofitmanager.utils.DownloadUtil;
 import com.fzq.retrofitmanager.utils.Utils;
 import com.google.gson.Gson;
 
+import org.devio.takephoto.app.TakePhoto;
+import org.devio.takephoto.app.TakePhotoImpl;
+import org.devio.takephoto.model.InvokeParam;
+import org.devio.takephoto.model.TContextWrap;
+import org.devio.takephoto.model.TResult;
+import org.devio.takephoto.permission.InvokeListener;
+import org.devio.takephoto.permission.PermissionManager;
+import org.devio.takephoto.permission.TakePhotoInvocationHandler;
+import org.devio.takephoto.uitl.TakePicUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TakePhoto.TakeResultListener, InvokeListener {
+
+    private TakePhoto takePhoto;
+    private InvokeParam invokeParam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getTakePhoto().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Utils.init(getApplicationContext());
+        initView();
         requestGetData();
         requestPostDatawithoutHeader();
         requestPostHeader();
@@ -31,6 +47,24 @@ public class MainActivity extends AppCompatActivity {
         requsetPostBean();
         requsetUploadFile();
         loadFile();
+
+    }
+
+    private void initView() {
+        findViewById(R.id.main_take_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autoObtainCameraPermission();
+            }
+        });
+
+        findViewById(R.id.main_choose_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                autoObtainStoragePermission();
+            }
+        });
+
     }
 
     /**
@@ -38,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private void loadFile() {
         String mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-        //在你本地SD卡根目录输出录音文件
-        mFileName += "/record.amr";
+        //在你本地SD卡根目录文件
+        mFileName += "/123.txt";
         DownloadUtil build = new DownloadUtil.Builder()
                 .Url("http://www.51cs8.com/NursingCloud/Watch/selectFileById")
                 .addHeader("authorization","24_a22270dd43a94f8eb09fb76bc86c7aeb")
@@ -202,6 +236,66 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        getTakePhoto().onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        getTakePhoto().onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.TPermissionType type = PermissionManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionManager.handlePermissionsResult(this, type, invokeParam, this);
+    }
+
+    public TakePhoto getTakePhoto() {
+        if (takePhoto == null) {
+            takePhoto = (TakePhoto) TakePhotoInvocationHandler.of(this).bind(new TakePhotoImpl(this, this));
+        }
+        return takePhoto;
+    }
+
+    @Override
+    public void takeFail(TResult result, String msg) {}
+
+    @Override
+    public void takeCancel() {}
+
+    @Override 
+    public PermissionManager.TPermissionType invoke(InvokeParam invokeParam) {
+        PermissionManager.TPermissionType type = PermissionManager.checkPermission(TContextWrap.of(this), invokeParam.getMethod());
+        if (PermissionManager.TPermissionType.WAIT.equals(type)) {
+            this.invokeParam = invokeParam;
+        }
+        return type;
+    }
+    //获取图片成功回调
+    @Override
+    public void takeSuccess(TResult result) {
+        String filePath = result.getImage().getCompressPath();
+        Log.e("takeSuccess",filePath);
+//        Glide.with(this).load(new File(result.getImages().get(0).getCompressPath())).into(headiv);
+    }
+
+    private void autoObtainStoragePermission() {
+        File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
+        TakePicUtil.sampleChoosePic(file,getTakePhoto());
+    }
+
+    private void autoObtainCameraPermission() {
+        File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
+        TakePicUtil.sampleTakePic(file,getTakePhoto());
+    }
 
 
 }

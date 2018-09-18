@@ -1,15 +1,15 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
+
     defaultConfig {
-        applicationId "com.fzq.retrofitlib"
-        minSdkVersion 19
+        minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -26,6 +26,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     testCompile 'junit:junit:4.12'
-    compile project(':retrofitmanager')
-    compile project(':takephoto_library')
+    compile 'com.soundcloud.android:android-crop:1.0.1@aar'
+    compile 'com.github.darsh2:MultipleImageSelect:v0.0.4'
+    compile 'me.shaohui.advancedluban:library:1.3.5'
 }

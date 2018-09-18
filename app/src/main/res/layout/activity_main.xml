@@ -14,4 +14,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
+
+    <Button
+        android:id="@+id/main_take_btn"
+        android:layout_marginTop="100dp"
+        android:text="takephoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/main_choose_btn"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="120dp"
+        android:text="choosepic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
