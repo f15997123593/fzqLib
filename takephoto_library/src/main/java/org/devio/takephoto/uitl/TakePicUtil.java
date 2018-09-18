@@ -49,12 +49,12 @@ public class TakePicUtil {
         //压缩大小
         takePhoto.onEnableCompress(config,false);
         TakePhotoOptions.Builder builder = new TakePhotoOptions.Builder();
-        builder.setWithOwnGallery(false);
+        builder.setWithOwnGallery(true);
         takePhoto.setTakePhotoOptions(builder.create());
         CropOptions.Builder builders = new CropOptions.Builder();
         builders.setOutputX(800).setOutputY(800); //拍照处理的照片大小
-        builders.setWithOwnCrop(false);//使用相机自带的
-        takePhoto.onPickFromCaptureWithCrop(imageUri, builders.create());
+        builders.setWithOwnCrop(true);//使用相机自带的
+        takePhoto.onPickFromGalleryWithCrop(imageUri, builders.create());
     }
 
 }
