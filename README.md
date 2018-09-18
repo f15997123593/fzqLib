@@ -1,4 +1,4 @@
-# FzqLib
+# fzqLib
 retrofit网络请求封装框架
 图片拍照,相册获取封装
 
@@ -23,6 +23,6 @@ Step 2. Add the dependency
 
 	dependencies {
   
-	        compile 'com.github.f15997123593:FzqLib:v1.0'
+	        implementation 'com.github.f15997123593:fzqLib:v1.0'
           
 	}
