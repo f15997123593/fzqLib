@@ -203,12 +203,11 @@ public class DownloadUtil {
             return savePath;
         }
 
-
         public DownloadUtil build() {
-            if (!TextUtils.isEmpty(url)) {
+            if (TextUtils.isEmpty(url)) {
                 throw new UnsupportedOperationException("u must set url...");
             }
-            if (!TextUtils.isEmpty(saveDir)){
+            if (TextUtils.isEmpty(saveDir)){
                 throw new UnsupportedOperationException("u must set dir...");
             }
             saveDir = isExistDir(saveDir);
