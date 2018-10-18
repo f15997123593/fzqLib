@@ -18,6 +18,15 @@ public class OnResultListener<T> {
     }
 
     /**
+     * 请求返回错误
+     * 显示错误的msg
+     */
+    public void onErrorMsg(String result){
+
+    }
+
+
+    /**
      * 响应成功，但是出错的情况
      * @param code    错误码     0x11对应 JsonSyntaxException
      * @param message 错误信息

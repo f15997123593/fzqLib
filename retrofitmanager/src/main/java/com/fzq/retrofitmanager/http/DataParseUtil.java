@@ -1,5 +1,6 @@
 package com.fzq.retrofitmanager.http;
 
+import com.fzq.retrofitmanager.bean.ErrorMsgBean;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -42,6 +43,17 @@ public class DataParseUtil {
             return null;
         }
     }
+
+
+    public static <T> ErrorMsgBean parseObject(String string) {
+        try {
+            return new Gson().fromJson(string, ErrorMsgBean.class);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     /**
      * 解析json数组为ArrayList

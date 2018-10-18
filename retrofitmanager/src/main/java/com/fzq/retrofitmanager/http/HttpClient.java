@@ -1,5 +1,6 @@
 package com.fzq.retrofitmanager.http;
 
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -470,8 +471,9 @@ public class HttpClient {
             case DataType.JSON_OBJECT:
                 if (DataParseUtil.parseObject(data, clazz)!=null){
                     onResultListener.onSuccess(DataParseUtil.parseObject(data, clazz));
-                }else{
-                    onResultListener.onError(0x11,"JsonSyntaxException");
+                }else{ //解析异常
+                    onResultListener.onError(0x11,data);
+                    onResultListener.onErrorMsg(DataParseUtil.parseObject(data).getMessage());
                 }
                 break;
             case DataType.JSON_ARRAY:
