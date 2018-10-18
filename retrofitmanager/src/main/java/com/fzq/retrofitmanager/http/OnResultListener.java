@@ -19,8 +19,7 @@ public class OnResultListener<T> {
 
     /**
      * 响应成功，但是出错的情况
-     *
-     * @param code    错误码
+     * @param code    错误码     0x11对应 JsonSyntaxException
      * @param message 错误信息
      */
     public void onError(int code, String message) {

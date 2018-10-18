@@ -2,6 +2,7 @@ package com.fzq.retrofitmanager.http;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -34,7 +35,12 @@ public class DataParseUtil {
      * @param clazz  解析类
      */
     public static <T> T parseObject(String string, Class<T> clazz) {
-        return new Gson().fromJson(string, clazz);
+        try {
+            return new Gson().fromJson(string, clazz);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -45,12 +51,15 @@ public class DataParseUtil {
      * @return ArrayList
      */
     public static <T> ArrayList<T> parseToArrayList(String json, Class<T> clazz) {
-        Type type = new TypeToken<ArrayList<JsonObject>>() {
-        }.getType();
+        Type type = new TypeToken<ArrayList<JsonObject>>() {}.getType();
         ArrayList<JsonObject> jsonObjects = new Gson().fromJson(json, type);
         ArrayList<T> arrayList = new ArrayList<>();
         for (JsonObject jsonObject : jsonObjects) {
-            arrayList.add(new Gson().fromJson(jsonObject, clazz));
+            try {
+                arrayList.add(new Gson().fromJson(jsonObject, clazz));
+            }catch (JsonSyntaxException e){
+                e.printStackTrace();
+            }
         }
         return arrayList;
     }
@@ -64,8 +73,13 @@ public class DataParseUtil {
      */
     public static <T> List<T> parseToList(String json, Class<T[]> clazz) {
         Gson gson = new Gson();
-        T[] array = gson.fromJson(json, clazz);
-        return Arrays.asList(array);
+        try {
+            T[] array = gson.fromJson(json, clazz);
+            return Arrays.asList(array);
+        }catch (JsonSyntaxException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

@@ -468,7 +468,11 @@ public class HttpClient {
                 onResultListener.onSuccess(data);
                 break;
             case DataType.JSON_OBJECT:
-                onResultListener.onSuccess(DataParseUtil.parseObject(data, clazz));
+                if (DataParseUtil.parseObject(data, clazz)!=null){
+                    onResultListener.onSuccess(DataParseUtil.parseObject(data, clazz));
+                }else{
+                    onResultListener.onError(0x11,"JsonSyntaxException");
+                }
                 break;
             case DataType.JSON_ARRAY:
                 onResultListener.onSuccess(DataParseUtil.parseToArrayList(data, clazz));
