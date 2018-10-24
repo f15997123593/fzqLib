@@ -1,17 +1,22 @@
 package com.fzq.retrofitlib;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.fzq.retrofitmanager.http.DataType;
 import com.fzq.retrofitmanager.http.HttpClient;
 import com.fzq.retrofitmanager.http.OnResultListener;
 import com.fzq.retrofitmanager.utils.DownloadUtil;
 import com.fzq.retrofitmanager.utils.Utils;
+import com.fzq.zxinglib.activity.CaptureActivity;
 import com.google.gson.Gson;
 
 import org.devio.takephoto.app.TakePhoto;
@@ -25,8 +30,8 @@ import org.devio.takephoto.permission.TakePhotoInvocationHandler;
 import org.devio.takephoto.uitl.TakePicUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
+
 
 public class MainActivity extends AppCompatActivity implements TakePhoto.TakeResultListener, InvokeListener {
 
@@ -47,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements TakePhoto.TakeRes
         requsetPostBean();
         requsetUploadFile();
         loadFile();
-
     }
 
     private void initView() {
@@ -64,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements TakePhoto.TakeRes
                 autoObtainStoragePermission();
             }
         });
-
     }
 
     /**
