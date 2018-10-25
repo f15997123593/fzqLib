@@ -10,7 +10,8 @@ ZXing扫码库(已经添加权限,不需要提前申请,但是可以提前申请
 
 
 
-To get a Git project into your build:
+
+
 Step 1. Add the JitPack repository to your build file
 
 Add it in your root build.gradle at the end of repositories:
