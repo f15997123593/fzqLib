@@ -1,6 +1,11 @@
 # fzqLib
 retrofit网络请求封装框架
 图片拍照,相册获取封装
+ZXing扫码库(已经添加权限,不需要提前申请,但是可以提前申请)
+工具类的库
+
+
+
 
 To get a Git project into your build:
 Step 1. Add the JitPack repository to your build file
