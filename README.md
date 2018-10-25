@@ -23,8 +23,8 @@ Step 2. Add the dependency
 
 	dependencies {
   
-	        compile 'com.github.f15997123593.fzqLib:retrofitmanager:v2.0'
-    	compile 'com.github.f15997123593.fzqLib:takephoto_library:v2.0'
+	        compile 'com.github.f15997123593.fzqLib:retrofitmanager:v3.0'
+    	compile 'com.github.f15997123593.fzqLib:takephoto_library:v3.0'
     	compile 'com.github.f15997123593.fzqLib:zxinglib:v3.0'
           
 	}
