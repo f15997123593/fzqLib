@@ -3,14 +3,22 @@ package com.fzq.retrofitlib;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.fzq.retrofitmanager.utils.ToastUtils;
+import com.fzq.retrofitmanager.utils.Utils;
+import com.fzq.utillib.alart.SweetAlertDialog;
+import com.fzq.utillib.crashutil.CaocConfig;
+import com.fzq.utillib.crashutil.CustomActivityOnCrash;
+import com.fzq.utillib.crashutil.DefaultErrorActivity;
 import com.fzq.zxinglib.activity.CaptureActivity;
 import com.fzq.zxinglib.activity.CodeUtils;
 
@@ -34,30 +42,135 @@ public class CapActivity extends AppCompatActivity{
 
     public Button button1 = null;
     public Button button2 = null;
-    public Button button3 = null;
-    public Button button4 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cap);
-
+        Utils.init(this);
+        initCrash();
         /**
          * 初始化组件
          */
         initView();
         //初始化权限
 //        initPermission();
+
+
+//        initAlert();
     }
+
+    private void initAlert() {
+//        SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+//        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+//        pDialog.setTitleText("Loading");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+
+
+//        new SweetAlertDialog(this)
+//                .setTitleText("Here's a message!")
+//                .show();
+
+        new SweetAlertDialog(this)
+                .setTitleText("Here's a message!")
+                .setContentText("It's pretty, isn't it?")
+                .setCancelText("No")
+                .showCancelButton(true)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        ToastUtils.showShortToast("CONFIRM");
+                        sweetAlertDialog.cancel();
+                    }
+                })
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        ToastUtils.showShortToast("CANCEL");
+                        sweetAlertDialog.cancel();
+                    }
+                })
+                .show();
+
+//        new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+//                .setTitleText("Oops...")
+//                .setContentText("Something went wrong!")
+//                .show();
+
+//        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+//                .setTitleText("Are you sure?")
+//                .setContentText("Won't be able to recover this file!")
+//                .setConfirmText("Yes,delete it!")
+//                .show();
+
+//        new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+//                .setTitleText("Good job!")
+//                .setContentText("You clicked the button!")
+//                .show();
+
+//        new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE)
+//                .setTitleText("Sweet!")
+//                .setContentText("Here's a custom image.")
+//                .setCustomImage(R.drawable.ic_arrow_back)
+//                .show();
+
+//        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+//                .setTitleText("Are you sure?")
+//                .setContentText("Won't be able to recover this file!")
+//                .setCancelText("No,cancel plx!")
+//                .setConfirmText("Yes,delete it!")
+//                .showCancelButton(true)
+//                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                    @Override
+//                    public void onClick(SweetAlertDialog sDialog) {
+//                        sDialog.cancel();
+//                    }
+//                })
+//                .show();
+
+    }
+
+    private void initCrash() {
+        CaocConfig.Builder.create()
+                .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT)
+                .enabled(true)
+                .showErrorDetails(true)
+                .showRestartButton(true)
+                .trackActivities(true)
+                .logErrorOnRestart(false)
+                .minTimeBetweenCrashesMs(2000)
+                .errorDrawable(R.mipmap.ic_launcher)
+                .restartActivity(CapActivity.class)
+                .errorActivity(DefaultErrorActivity.class)
+                .eventListener(new CustomEventListener())
+                .apply();
+
+    }
+
+    private static class CustomEventListener implements CustomActivityOnCrash.EventListener {
+        private static final String TAG = "CrashEvent";
+        @Override
+        public void onLaunchErrorActivity() {
+            Log.i(TAG, "onLaunchErrorActivity()");
+        }
+        @Override
+        public void onRestartAppFromErrorActivity() {
+            Log.i(TAG, "onRestartAppFromErrorActivity()");
+        }
+
+        @Override
+        public void onCloseAppFromErrorActivity() {
+            Log.i(TAG, "onCloseAppFromErrorActivity()");
+        }
+    }
+
 
     /**
      * 初始化组件
      */
     private void initView() {
         button1 = (Button) findViewById(R.id.button1);
-        button2 = (Button) findViewById(R.id.button2);
-        button3 = (Button) findViewById(R.id.button3);
-        button4 = (Button) findViewById(R.id.button4);
         /**
          * 打开默认二维码扫描界面
          *
@@ -70,13 +183,12 @@ public class CapActivity extends AppCompatActivity{
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplication(), CaptureActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
+//                Intent intent = new Intent(getApplication(), CaptureActivity.class);
+//                startActivityForResult(intent, REQUEST_CODE);
+//                button2.getId();
+                initAlert();
             }
         });
-//        button2.setOnClickListener(new ButtonOnClickListener(button2.getId()));
-//        button3.setOnClickListener(new ButtonOnClickListener(button3.getId()));
-//        button4.setOnClickListener(new ButtonOnClickListener(button4.getId()));
     }
 
 
@@ -108,6 +220,7 @@ public class CapActivity extends AppCompatActivity{
             if (data != null) {
                 Uri uri = data.getData();
                 try {
+                    //解析系统相册的图片
                     CodeUtils.analyzeBitmap(uri.getPath(), new CodeUtils.AnalyzeCallback() {
                         @Override
                         public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
