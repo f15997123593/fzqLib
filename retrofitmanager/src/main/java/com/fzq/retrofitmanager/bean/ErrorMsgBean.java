@@ -9,12 +9,7 @@ package com.fzq.retrofitmanager.bean;
  */
 public class ErrorMsgBean {
 
-    private boolean status;
     private String message;
-
-    public boolean isStatus() {
-        return status;
-    }
 
     public String getMessage() {
         return message;

@@ -202,7 +202,15 @@ public class HttpClient {
                     }
                 }
                 if (!response.isSuccessful() || 200 != response.code()) {
-                    onResultListener.onError(response.code(), response.message());
+                    if (response.code() == 500){
+                        try {
+                            onResultListener.onErrorMsg(DataParseUtil.parseObject(response.errorBody().string()).getMessage());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        onResultListener.onError(response.code(), response.message());
+                    }
                 }
                 if (null != builder.tag) {
                     removeCall(builder.url);
@@ -213,6 +221,7 @@ public class HttpClient {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
                 onResultListener.onFailure(t.getMessage());
+
                 if (null != builder.tag) {
                     removeCall(builder.url);
                 }
@@ -433,7 +442,7 @@ public class HttpClient {
 
         /**
          * 响应体类型设置,如果要响应体类型为STRING，请不要使用这个方法
-         * @param bodyType 响应体类型，分别:STRING，JSON_OBJECT,JSON_ARRAY,XML
+         * @param bodyType 响应体类型，分别:STRING，JSON_OBJECT,JSON_ARRAY
          * @param clazz    指定的解析类
          * @param <T>      解析类
          */

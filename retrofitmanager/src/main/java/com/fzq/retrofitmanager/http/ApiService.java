@@ -38,6 +38,8 @@ public interface ApiService {
     @GET
     Call<ResponseBody> executeGet(@Url String url, @Header("authorization") String authorization);
 
+
+
     /**
      * POST方式将以表单的方式传递键值对作为请求体发送到服务器
      * 其中@FormUrlEncoded 以表单的方式传递键值对
@@ -48,7 +50,6 @@ public interface ApiService {
     @FormUrlEncoded
     @POST
     Call<ResponseBody> executePost(@Url String url, @FieldMap Map<String, String> map);
-
 
     @FormUrlEncoded
     @POST

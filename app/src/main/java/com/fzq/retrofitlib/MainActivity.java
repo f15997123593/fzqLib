@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements TakePhoto.TakeRes
         setContentView(R.layout.activity_main);
         Utils.init(getApplicationContext());
         initView();
+        requestLogin();
         requestGetData();
         requestPostDatawithoutHeader();
         requestPostHeader();
@@ -52,6 +53,42 @@ public class MainActivity extends AppCompatActivity implements TakePhoto.TakeRes
         requsetPostBean();
         requsetUploadFile();
         loadFile();
+    }
+
+    private void requestLogin() {
+
+        HttpClient client = new HttpClient.Builder()
+                .baseUrl("http://192.168.1.100:7009/")
+                .url("uac/auth/form")
+                .addHeader("Basic Y21ueS1jbGllbnQtdWFjOmNtbnlDbGllbnRTZWNyZXQ=")
+                .params("username","godChis")
+                .params("password","Cc123456")
+                .bodyType(DataType.JSON_OBJECT, LoginJsonBean.class)
+                .build();
+        client.post(new OnResultListener<LoginJsonBean>(){
+            @Override
+            public void onSuccess(LoginJsonBean result) {
+                Log.e("onSuccess",result.getMessage());
+            }
+
+            @Override
+            public void onErrorMsg(String result) {
+                super.onErrorMsg(result);
+                Log.e("onErrorMsg ","result == "+result);
+            }
+            @Override
+            public void onError(int code, String message) {
+                super.onError(code, message);
+                Log.e("onError code","code == "+code);
+                Log.e("onError message","message=="+message);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                super.onFailure(message);
+                Log.e("onFailure",message);
+            }
+        });
     }
 
     private void initView() {
