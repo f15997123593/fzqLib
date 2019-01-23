@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
+import com.darsh.multipleimageselect.activities.ImageSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import org.devio.takephoto.model.CropOptions;
 import org.devio.takephoto.model.TContextWrap;
@@ -26,9 +27,9 @@ public class IntentUtils {
      * @param limit 最多选择图片张数的限制
      */
     public static Intent getPickMultipleIntent(TContextWrap contextWrap, int limit) {
-        Intent intent = new Intent(contextWrap.getActivity(), AlbumSelectActivity.class);
-        intent.putExtra(Constants.INTENT_EXTRA_LIMIT, limit > 0 ? limit : 1);
-        return intent;
+            Intent intent = new Intent(contextWrap.getActivity(), AlbumSelectActivity.class);
+            intent.putExtra(Constants.INTENT_EXTRA_LIMIT, limit > 0 ? limit : 1);
+            return intent;
     }
 
     /**

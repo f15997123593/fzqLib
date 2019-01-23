@@ -13,4 +13,11 @@
     <string name="tip_permission_storage">No permission to use the SD card, open the rights management</string>
     <string name="tip_permission_camera_storage">No permission to use the camera and SD card, open the rights management</string>
 
+    <string name="album_view">Select photo album</string>
+    <string name="image_view">Tap to select images</string>
+
+    <string name="add">ADD</string>
+    <string name="selected">selected</string>
+    <string name="limit_exceeded">Can select a maximum of %d images</string>
+
 </resources>

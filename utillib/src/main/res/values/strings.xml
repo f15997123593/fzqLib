@@ -14,4 +14,23 @@
     <string name="LOADING">Loading...</string>
 
     <string name="default_progressbar">Default Progressbar:</string>
+
+
+
+
+    <!--选择器-->
+    <string name="cancle">取消</string>
+    <string name="title">选择时间</string>
+    <string name="commit">确定</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+    <string name="select_dates">选择日期</string>
+    <string name="current_date">当前日期</string>
+    <string name="select_time">选择时间</string>
+    <string name="current_time">当前时间</string>
+
+
 </resources>
