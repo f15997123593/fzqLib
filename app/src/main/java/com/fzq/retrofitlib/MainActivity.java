@@ -277,8 +277,6 @@ public class MainActivity extends AppCompatActivity implements TakePhoto.TakeRes
     }
 
 
-
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         getTakePhoto().onSaveInstanceState(outState);
