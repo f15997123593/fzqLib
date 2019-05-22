@@ -205,7 +205,7 @@ public class HttpClient {
                     if (response.code() == 500){
                         try {
                             onResultListener.onErrorMsg(DataParseUtil.parseObject(response.errorBody().string()).getMessage());
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }else{

@@ -1,1 +1,1 @@
-include ':app', ':retrofitmanager', ':takephoto_library', ':zxinglib', ':utillib'
+include ':app', ':retrofitmanager', ':takephoto_library', ':zxinglib', ':utillib', ':cameralib'

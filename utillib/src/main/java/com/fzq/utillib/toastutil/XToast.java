@@ -73,8 +73,12 @@ public class XToast  {
 
     public XToast(Context context)
     {
-        this.mContext = context;
-        this.mInflater = LayoutInflater.from(context);
+        try{
+            this.mContext = context;
+            this.mInflater = LayoutInflater.from(context);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public XToast(Context context,String message,int type)
@@ -86,13 +90,15 @@ public class XToast  {
     }
 
     public static void ShowMsg(Context context,String msg){
-        XToast.create(context).setText(msg)
-                .setAnimation(AnimationUtils.ANIMATION_DRAWER)
-                .setDuration(XToast.XTOAST_DURATION_SHORT)
-                .show();
+        try{
+            XToast.create(context).setText(msg)
+                    .setAnimation(AnimationUtils.ANIMATION_DRAWER)
+                    .setDuration(XToast.XTOAST_DURATION_SHORT)
+                    .show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
-
-
 
 
     public static XToast create(Context context){
