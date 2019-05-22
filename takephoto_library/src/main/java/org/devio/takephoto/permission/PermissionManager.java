@@ -18,7 +18,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
- * Created by penn on 16/9/22.
  */
 public class PermissionManager {
     public enum TPermission {

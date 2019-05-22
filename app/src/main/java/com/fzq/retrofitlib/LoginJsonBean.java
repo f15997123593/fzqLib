@@ -9,7 +9,6 @@ public class LoginJsonBean {
     /**
      * code : 200
      * message : 操作成功
-     * result : {"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJnb2RDaGlzaiIsInNjb3BlIjpbIlwiKlwiIl0sImxvZ2luTmFtZSI6ImdvZENoaXNqIiwiZXhwIjoxNTQ0NTg4MzgyLCJqdGkiOiJkYmM3ZmE3ZC0xMDE1LTQ3Y2ItOWJmMi0zYjBhOTk4N2RlOGMiLCJjbGllbnRfaWQiOiJjbW55LWNsaWVudC11YWMiLCJ0aW1lc3RhbXAiOjE1NDQ1ODExODIwMjJ9.lgOeOxvgAtSADLDsVeuBVBneP58B3rveW-R8_Z3Dhzo","token_type":"bearer","refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJnb2RDaGlzaiIsInNjb3BlIjpbIlwiKlwiIl0sImxvZ2luTmFtZSI6ImdvZENoaXNqIiwiYXRpIjoiZGJjN2ZhN2QtMTAxNS00N2NiLTliZjItM2IwYTk5ODdkZThjIiwiZXhwIjoxNTQ3MTczMTgyLCJqdGkiOiI2MWU0OTAzMy04YjAxLTRiZDQtYTcxNy1kZDJmNTA5MmVmZDgiLCJjbGllbnRfaWQiOiJjbW55LWNsaWVudC11YWMiLCJ0aW1lc3RhbXAiOjE1NDQ1ODExODIwMjJ9.oMbxKe_wuqmu0ePVRI6kGNAfKtxxMzOoZYwei-jZfM0","expires_in":7199,"scope":"\"*\"","timestamp":1544581182022,"loginName":"godChisj","jti":"dbc7fa7d-1015-47cb-9bf2-3b0a9987de8c"}
      */
 
     private int code;
@@ -41,16 +40,6 @@ public class LoginJsonBean {
     }
 
     public static class ResultBean {
-        /**
-         * access_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJnb2RDaGlzaiIsInNjb3BlIjpbIlwiKlwiIl0sImxvZ2luTmFtZSI6ImdvZENoaXNqIiwiZXhwIjoxNTQ0NTg4MzgyLCJqdGkiOiJkYmM3ZmE3ZC0xMDE1LTQ3Y2ItOWJmMi0zYjBhOTk4N2RlOGMiLCJjbGllbnRfaWQiOiJjbW55LWNsaWVudC11YWMiLCJ0aW1lc3RhbXAiOjE1NDQ1ODExODIwMjJ9.lgOeOxvgAtSADLDsVeuBVBneP58B3rveW-R8_Z3Dhzo
-         * token_type : bearer
-         * refresh_token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJnb2RDaGlzaiIsInNjb3BlIjpbIlwiKlwiIl0sImxvZ2luTmFtZSI6ImdvZENoaXNqIiwiYXRpIjoiZGJjN2ZhN2QtMTAxNS00N2NiLTliZjItM2IwYTk5ODdkZThjIiwiZXhwIjoxNTQ3MTczMTgyLCJqdGkiOiI2MWU0OTAzMy04YjAxLTRiZDQtYTcxNy1kZDJmNTA5MmVmZDgiLCJjbGllbnRfaWQiOiJjbW55LWNsaWVudC11YWMiLCJ0aW1lc3RhbXAiOjE1NDQ1ODExODIwMjJ9.oMbxKe_wuqmu0ePVRI6kGNAfKtxxMzOoZYwei-jZfM0
-         * expires_in : 7199
-         * scope : "*"
-         * timestamp : 1544581182022
-         * loginName : godChisj
-         * jti : dbc7fa7d-1015-47cb-9bf2-3b0a9987de8c
-         */
 
         private String access_token;
         private String token_type;

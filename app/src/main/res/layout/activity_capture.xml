@@ -11,16 +11,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.fzq.retrofitlib.MainActivity">
 
+    <ImageView
+        android:id="@+id/capture_iv"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
 
     <Button
-        android:id="@+id/main_take_btn"
-        android:text="takephoto_choosepic"
+        android:id="@+id/cap_capture"
+        android:text="takephoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/main_video_btn"
-        android:text="shootvideo"
+        android:id="@+id/cap_choosepic"
+        android:text="choosepic"
         android:layout_width="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content" />
