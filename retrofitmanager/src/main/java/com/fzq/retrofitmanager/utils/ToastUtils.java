@@ -264,7 +264,8 @@ public class ToastUtils {
     private static void showToast(CharSequence text, int duration) {
         if (isJumpWhenMore) cancelToast();
         if (sToast == null) {
-            sToast = Toast.makeText(Utils.getContext(), text, duration);
+            sToast = Toast.makeText(Utils.getContext(), null, duration);
+            sToast.setText(text);
             TextView tv = (TextView) sToast.getView().findViewById(android.R.id.message);
             tv.setTextSize(18);
             sToast.setGravity(Gravity.CENTER, 0, 0);
