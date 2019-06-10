@@ -188,6 +188,7 @@ public class HttpClient {
         if (!NetworkUtils.isConnected()) {
             onResultListener.onFailure("当前网络不可用");
             ToastUtils.showShortToast("当前网络不可用");
+            onResultListener.onFailure("当前网络不可用");
             return;
         }
         mCall.enqueue(new Callback<ResponseBody>() {
