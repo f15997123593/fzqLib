@@ -129,11 +129,14 @@ public class XToastHandler extends Handler {
         //如果当前有XToast正在展示，直接返回
         if(xToast.isShowing()) return;
         //把mView添加到界面中，实现Toast效果
-        xToast.getViewGroup().addView(xToast.getView());
-        //获取动画效果
-        AnimatorSet set = xToast.getShowAnimatorSet();
-        set.start();
-
+        try {
+            xToast.getViewGroup().addView(xToast.getView());
+            //获取动画效果
+            AnimatorSet set = xToast.getShowAnimatorSet();
+            set.start();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         Message message = Message.obtain();
         message.what = HIDE_TOAST;
         message.obj = xToast;
