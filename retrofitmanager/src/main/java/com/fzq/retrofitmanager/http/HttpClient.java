@@ -183,19 +183,21 @@ public class HttpClient {
         putCall(builder, mCall);
         request(builder, onResultListener);
     }
+    private void showPopDialog() {
 
+    }
     private void request(final Builder builder, final OnResultListener onResultListener) {
+        showPopDialog();
         if (!NetworkUtils.isConnected()) {
-
 //            onResultListener.onFailure("当前网络不可用");
             onResultListener.onErrorMsg("当前网络不可用");
-
-//            ToastUtils.showShortToast("当前网络不可用");
             return;
         }
+        onResultListener.showPopup(true);
         mCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                onResultListener.showPopup(false);
                 if (200 == response.code()) {
                     try {
                         String result = response.body().string();
@@ -223,6 +225,7 @@ public class HttpClient {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
+                onResultListener.showPopup(false);
                 onResultListener.onFailure(t.getMessage());
 
                 if (null != builder.tag) {
@@ -232,6 +235,7 @@ public class HttpClient {
 
         });
     }
+
 
 
     /**
