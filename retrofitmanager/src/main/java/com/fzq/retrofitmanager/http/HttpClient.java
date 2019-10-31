@@ -190,7 +190,7 @@ public class HttpClient {
         showPopDialog();
         if (!NetworkUtils.isConnected()) {
 //            onResultListener.onFailure("当前网络不可用");
-            onResultListener.onErrorMsg("当前网络不可用");
+            onResultListener.onErrorMsg("暂无网络");
             return;
         }
         onResultListener.showPopup(true);
