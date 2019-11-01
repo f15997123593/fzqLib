@@ -133,13 +133,13 @@ public class HttpClient {
                 mCall = retrofit.create(ApiService.class)
                         .executePost(builder.url,builder.authorization,builder.body);
             }else if (builder.bodyPart!=null&&builder.description!=null){
-              //文件上传
+                //文件上传
                 mCall = retrofit.create(ApiService.class)
                         .uploadFile(builder.url,builder.authorization,builder.description,builder.bodyPart);
             } else{
                 //标准form表单提交
                 mCall = retrofit.create(ApiService.class)
-                    .executePost(builder.url,builder.authorization,builder.params);
+                        .executePost(builder.url,builder.authorization,builder.params);
             }
         }else{
             //无请求头
