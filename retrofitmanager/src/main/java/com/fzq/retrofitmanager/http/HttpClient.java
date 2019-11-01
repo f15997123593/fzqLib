@@ -188,7 +188,7 @@ public class HttpClient {
         if (!NetworkUtils.isConnected()) {
 //            onResultListener.onFailure("当前网络不可用");
             jumpError(builder);
-            onResultListener.onErrorMsg("暂无网络");
+//            onResultListener.onErrorMsg("暂无网络");
             return;
         }
         mCall.enqueue(new Callback<ResponseBody>() {
