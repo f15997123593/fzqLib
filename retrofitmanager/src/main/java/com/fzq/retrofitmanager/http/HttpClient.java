@@ -189,15 +189,12 @@ public class HttpClient {
     private void request(final Builder builder, final OnResultListener onResultListener) {
         showPopDialog();
         if (!NetworkUtils.isConnected()) {
-//            onResultListener.onFailure("当前网络不可用");
             onResultListener.onErrorMsg("暂无网络");
             return;
         }
-        onResultListener.showPopup(true);
         mCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                onResultListener.showPopup(false);
                 if (200 == response.code()) {
                     try {
                         String result = response.body().string();
@@ -225,9 +222,8 @@ public class HttpClient {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
-                onResultListener.showPopup(false);
                 onResultListener.onFailure(t.getMessage());
-
+                onResultListener.onErrorMsg("加载失败");
                 if (null != builder.tag) {
                     removeCall(builder.url);
                 }
