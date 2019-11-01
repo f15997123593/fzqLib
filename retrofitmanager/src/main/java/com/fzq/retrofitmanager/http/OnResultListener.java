@@ -42,8 +42,4 @@ public class OnResultListener<T> {
     public void onFailure(String message) {
     }
 
-    public void showPopup(boolean b){
-
-    }
-
 }

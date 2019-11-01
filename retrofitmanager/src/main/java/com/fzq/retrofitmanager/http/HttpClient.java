@@ -1,17 +1,16 @@
 package com.fzq.retrofitmanager.http;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.fzq.retrofitmanager.utils.FileTypeUtils;
 import com.fzq.retrofitmanager.utils.NetworkUtils;
 import com.fzq.retrofitmanager.utils.StringUtils;
-import com.fzq.retrofitmanager.utils.ToastUtils;
-
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
@@ -183,21 +181,18 @@ public class HttpClient {
         putCall(builder, mCall);
         request(builder, onResultListener);
     }
-    private void showPopDialog() {
 
-    }
     private void request(final Builder builder, final OnResultListener onResultListener) {
-        showPopDialog();
         if (!NetworkUtils.isConnected()) {
 //            onResultListener.onFailure("当前网络不可用");
+            jumpError(builder);
             onResultListener.onErrorMsg("暂无网络");
             return;
         }
-        onResultListener.showPopup(true);
         mCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                onResultListener.showPopup(false);
+
                 if (200 == response.code()) {
                     try {
                         String result = response.body().string();
@@ -225,17 +220,21 @@ public class HttpClient {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
-                onResultListener.showPopup(false);
                 onResultListener.onFailure(t.getMessage());
-
+                jumpError(builder);
                 if (null != builder.tag) {
                     removeCall(builder.url);
                 }
             }
-
         });
     }
 
+    private void jumpError(Builder builder) {
+        if (builder.context!=null&&builder.errorActivity!=null){
+            builder.context.startActivityForResult(new Intent(builder.context,builder.errorActivity),0x61);
+            builder.context.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+    }
 
 
     /**
@@ -299,6 +298,8 @@ public class HttpClient {
         private String authorization;
         private Object tag;
         private RequestBody body;
+        private Activity context;
+        private Class<? extends Activity> errorActivity;
         private MultipartBody.Part bodyPart;
         private RequestBody description;
         private Map<String, String> params = new HashMap<>();
@@ -310,6 +311,12 @@ public class HttpClient {
 
 
         public Builder() {
+        }
+
+        public Builder errorJump(Activity context,Class<? extends Activity> activity){
+            this.context = context;
+            this.errorActivity = activity;
+            return this;
         }
 
         /**

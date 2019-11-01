@@ -16,12 +16,7 @@ import android.widget.Toast;
 import com.fzq.retrofitmanager.utils.ToastUtils;
 import com.fzq.retrofitmanager.utils.Utils;
 import com.fzq.utillib.alart.SweetAlertDialog;
-import com.fzq.utillib.crashutil.CaocConfig;
-import com.fzq.utillib.crashutil.CustomActivityOnCrash;
-import com.fzq.utillib.crashutil.DefaultErrorActivity;
-import com.fzq.zxinglib.activity.CaptureActivity;
 import com.fzq.zxinglib.activity.CodeUtils;
-
 import java.util.List;
 
 
@@ -132,39 +127,9 @@ public class CapActivity extends AppCompatActivity{
     }
 
     private void initCrash() {
-        CaocConfig.Builder.create()
-                .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT)
-                .enabled(true)
-                .showErrorDetails(true)
-                .showRestartButton(true)
-                .trackActivities(true)
-                .logErrorOnRestart(false)
-                .minTimeBetweenCrashesMs(2000)
-                .errorDrawable(R.mipmap.ic_launcher)
-                .restartActivity(CapActivity.class)
-                .errorActivity(DefaultErrorActivity.class)
-                .eventListener(new CustomEventListener())
-                .apply();
+
 
     }
-
-    private static class CustomEventListener implements CustomActivityOnCrash.EventListener {
-        private static final String TAG = "CrashEvent";
-        @Override
-        public void onLaunchErrorActivity() {
-            Log.i(TAG, "onLaunchErrorActivity()");
-        }
-        @Override
-        public void onRestartAppFromErrorActivity() {
-            Log.i(TAG, "onRestartAppFromErrorActivity()");
-        }
-
-        @Override
-        public void onCloseAppFromErrorActivity() {
-            Log.i(TAG, "onCloseAppFromErrorActivity()");
-        }
-    }
-
 
     /**
      * 初始化组件

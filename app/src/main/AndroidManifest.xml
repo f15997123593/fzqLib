@@ -22,7 +22,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".RetrofitActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,6 +30,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ShootActivity"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".ErrorActivity"/>
         <activity android:name=".CaptureChooseActivity"/>
     </application>
 

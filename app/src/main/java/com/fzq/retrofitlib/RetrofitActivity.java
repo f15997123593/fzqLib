@@ -1,14 +1,18 @@
 package com.fzq.retrofitlib;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.fzq.retrofitmanager.http.DataType;
 import com.fzq.retrofitmanager.http.HttpClient;
 import com.fzq.retrofitmanager.http.OnResultListener;
 import com.fzq.retrofitmanager.utils.DownloadUtil;
+import com.fzq.retrofitmanager.utils.Utils;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -26,12 +30,27 @@ public class RetrofitActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Utils.init(this);
+        initView();
+    }
+
+    public void initData(){
+
+    }
+
+    private void initView() {
+        findViewById(R.id.main_take_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requestLogin();
+            }
+        });
     }
 
     private void requestLogin() {
-
         HttpClient client = new HttpClient.Builder()
                 .baseUrl("http://192.168.1.100:7009/")
+                .errorJump(this,ErrorActivity.class)
                 .url("uac/auth/form")
                 .addHeader("Basic Y21ueS1jbGllbnQtdWFjOmNtbnlDbGllbnRTZWNyZXQ=")
                 .params("username","godChis")
@@ -228,4 +247,11 @@ public class RetrofitActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0x61 && resultCode == 0x62){
+            initData();
+        }
+    }
 }
