@@ -35,7 +35,8 @@ public class RetrofitActivity extends AppCompatActivity {
     }
 
     public void initData(){
-
+//        requestLogin();
+//        requsetPostBean();
     }
 
     private void initView() {
@@ -43,6 +44,11 @@ public class RetrofitActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 requestLogin();
+                requestLogin();
+                requestLogin();
+                requestLogin();
+                requestLogin();
+                requsetPostBean();
             }
         });
     }
@@ -141,6 +147,7 @@ public class RetrofitActivity extends AppCompatActivity {
         HttpClient client2 = new HttpClient.Builder()
                 .baseUrl("http://www.51cs8.com/NursingCloud/")
                 .url("Room/floorAddRoom")
+                .errorJump(this,ErrorActivity.class)
                 .addHeader("24_a22270dd43a94f8eb09fb76bc86c7aeb")
                 .params(jsonStr)
                 .bodyType(DataType.JSON_OBJECT, MsgBean.class)

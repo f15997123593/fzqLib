@@ -233,12 +233,16 @@ public class HttpClient {
 
     private void jumpError(Builder builder) {
         if (builder.context!=null&&builder.errorActivity!=null){
-            builder.context.startActivityForResult(new Intent(builder.context,builder.errorActivity),0x61);
+            Intent intent = new Intent(builder.context,builder.errorActivity);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            builder.context.startActivityForResult(intent,0x61);
             builder.context.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }else{
             if (ErrorJumpUtils.getAActivity()!=null && ErrorJumpUtils.getBActivity()!=null){
-                ErrorJumpUtils.getAActivity().startActivityForResult(
-                        new Intent(ErrorJumpUtils.getAActivity(),ErrorJumpUtils.getBActivity()),0x61);
+                Intent intent = new Intent(ErrorJumpUtils.getAActivity(),ErrorJumpUtils.getBActivity());
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                ErrorJumpUtils.getAActivity().startActivityForResult(intent,0x61);
+                ErrorJumpUtils.getAActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         }
     }
