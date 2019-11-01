@@ -7,6 +7,8 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.fzq.retrofitmanager.utils.ErrorJumpUtils;
 import com.fzq.retrofitmanager.utils.FileTypeUtils;
 import com.fzq.retrofitmanager.utils.NetworkUtils;
 import com.fzq.retrofitmanager.utils.StringUtils;
@@ -233,6 +235,11 @@ public class HttpClient {
         if (builder.context!=null&&builder.errorActivity!=null){
             builder.context.startActivityForResult(new Intent(builder.context,builder.errorActivity),0x61);
             builder.context.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }else{
+            if (ErrorJumpUtils.getAActivity()!=null && ErrorJumpUtils.getBActivity()!=null){
+                ErrorJumpUtils.getAActivity().startActivityForResult(
+                        new Intent(ErrorJumpUtils.getAActivity(),ErrorJumpUtils.getBActivity()),0x61);
+            }
         }
     }
 
