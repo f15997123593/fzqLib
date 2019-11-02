@@ -1,17 +1,13 @@
 package com.fzq.retrofitmanager.http;
 
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-
 import com.fzq.retrofitmanager.utils.FileTypeUtils;
+import com.fzq.retrofitmanager.utils.LogUtils;
 import com.fzq.retrofitmanager.utils.NetworkUtils;
 import com.fzq.retrofitmanager.utils.StringUtils;
-import com.fzq.retrofitmanager.utils.ToastUtils;
-
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -198,6 +194,9 @@ public class HttpClient {
                 if (200 == response.code()) {
                     try {
                         String result = response.body().string();
+                        if(builder.showLog){
+                            LogUtils.d("response",result);
+                        }
                         parseData(result, builder.clazz, builder.bodyType, onResultListener);
                     } catch (IOException | IllegalStateException e) {
                         e.printStackTrace();
@@ -294,6 +293,7 @@ public class HttpClient {
         private String url;
         private String authorization;
         private Object tag;
+        private boolean showLog;
         private RequestBody body;
         private MultipartBody.Part bodyPart;
         private RequestBody description;
@@ -336,6 +336,14 @@ public class HttpClient {
          */
         public Builder tag(Object tag) {
             this.tag = tag;
+            return this;
+        }
+
+        /**
+         * 是否显示请求成功的Log日志打印
+         */
+        public Builder showLog(boolean showLog) {
+            this.showLog = showLog;
             return this;
         }
 

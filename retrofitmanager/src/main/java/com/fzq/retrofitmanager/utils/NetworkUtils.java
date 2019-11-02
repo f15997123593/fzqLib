@@ -72,6 +72,17 @@ public class NetworkUtils {
     }
 
     /**
+     * =========通过ip ping 来判断ip是否通
+     * ping 2 次
+     * @param ip
+     */
+    public static boolean isAvailableByPing(String ip) {
+        ShellUtils.CommandResult result = ShellUtils.execCmd("ping -c 1 -w 1 " + ip, false);
+        boolean ret = result.result == 0;
+       return ret;
+    }
+
+    /**
      * 判断网络是否可用
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.INTERNET"/>}</p>
      *

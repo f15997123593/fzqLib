@@ -44,10 +44,6 @@ public class RetrofitActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 requestLogin();
-                requestLogin();
-                requestLogin();
-                requestLogin();
-                requestLogin();
                 requsetPostBean();
             }
         });
@@ -56,8 +52,8 @@ public class RetrofitActivity extends AppCompatActivity {
     private void requestLogin() {
         HttpClient client = new HttpClient.Builder()
                 .baseUrl("http://192.168.1.100:7009/")
-                .errorJump(this,ErrorActivity.class)
                 .url("uac/auth/form")
+                .showLog(true)
                 .addHeader("Basic Y21ueS1jbGllbnQtdWFjOmNtbnlDbGllbnRTZWNyZXQ=")
                 .params("username","godChis")
                 .params("password","Cc123456")
@@ -147,7 +143,6 @@ public class RetrofitActivity extends AppCompatActivity {
         HttpClient client2 = new HttpClient.Builder()
                 .baseUrl("http://www.51cs8.com/NursingCloud/")
                 .url("Room/floorAddRoom")
-                .errorJump(this,ErrorActivity.class)
                 .addHeader("24_a22270dd43a94f8eb09fb76bc86c7aeb")
                 .params(jsonStr)
                 .bodyType(DataType.JSON_OBJECT, MsgBean.class)
@@ -156,6 +151,12 @@ public class RetrofitActivity extends AppCompatActivity {
             @Override
             public void onSuccess(MsgBean result) {
                 Log.e("onSuccess",result.getMessage());
+            }
+
+            @Override
+            public void onErrorMsg(String result) {
+                super.onErrorMsg(result);
+                Log.e("onErrorMsg",result);
             }
         });
 
