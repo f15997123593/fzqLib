@@ -203,15 +203,18 @@ public class HttpClient {
                     }
                 }
                 if (!response.isSuccessful() || 200 != response.code()) {
-                    if (response.code() == 500){
-                        try {
-                            onResultListener.onErrorMsg(DataParseUtil.parseObject(response.errorBody().string()).getMessage());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }else{
-                        onResultListener.onError(response.code(), response.message());
-                    }
+
+                    onResultListener.onErrorMsg("系统错误");
+//                    onResultListener.onError(response.code(), response.message());
+//                    if (response.code() == 500){
+//                        try {
+//                            onResultListener.onErrorMsg(DataParseUtil.parseObject(response.errorBody().string()).getMessage());
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }else{
+//                        onResultListener.onError(response.code(), response.message());
+//                    }
                 }
                 if (null != builder.tag) {
                     removeCall(builder.url);
@@ -222,7 +225,7 @@ public class HttpClient {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 t.printStackTrace();
                 onResultListener.onFailure(t.getMessage());
-                onResultListener.onErrorMsg("加载失败");
+                onResultListener.onErrorMsg("系统错误");
                 if (null != builder.tag) {
                     removeCall(builder.url);
                 }
@@ -492,7 +495,7 @@ public class HttpClient {
                 if (DataParseUtil.parseObject(data, clazz)!=null){
                     onResultListener.onSuccess(DataParseUtil.parseObject(data, clazz));
                 }else{ //解析异常
-                    onResultListener.onError(0x11,data);
+//                    onResultListener.onError(0x11,data);
 //                    onResultListener.onErrorMsg(DataParseUtil.parseObject(data).getMessage());
                     onResultListener.onErrorMsg("系统错误");
                 }
