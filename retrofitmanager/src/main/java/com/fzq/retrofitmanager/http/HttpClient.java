@@ -195,7 +195,7 @@ public class HttpClient {
                     try {
                         String result = response.body().string();
                         if(builder.showLog){
-                            LogUtils.d("response",result);
+                            LogUtils.d("success",result);
                         }
                         parseData(result, builder.clazz, builder.bodyType, onResultListener);
                     } catch (IOException | IllegalStateException e) {
@@ -493,7 +493,8 @@ public class HttpClient {
                     onResultListener.onSuccess(DataParseUtil.parseObject(data, clazz));
                 }else{ //解析异常
                     onResultListener.onError(0x11,data);
-                    onResultListener.onErrorMsg(DataParseUtil.parseObject(data).getMessage());
+//                    onResultListener.onErrorMsg(DataParseUtil.parseObject(data).getMessage());
+                    onResultListener.onErrorMsg("系统错误");
                 }
                 break;
             case DataType.JSON_ARRAY:
