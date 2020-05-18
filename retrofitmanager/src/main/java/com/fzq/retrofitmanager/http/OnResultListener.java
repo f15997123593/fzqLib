@@ -20,6 +20,7 @@ public class OnResultListener<T> {
     /**
      * 请求返回错误
      * 显示错误的msg
+     * 包含网络异常,请求超时
      */
     public void onErrorMsg(String result){
 

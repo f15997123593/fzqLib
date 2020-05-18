@@ -179,11 +179,8 @@ public class HttpClient {
         putCall(builder, mCall);
         request(builder, onResultListener);
     }
-    private void showPopDialog() {
 
-    }
     private void request(final Builder builder, final OnResultListener onResultListener) {
-        showPopDialog();
         if (!NetworkUtils.isConnected()) {
             onResultListener.onErrorMsg("暂无网络");
             return;
@@ -203,18 +200,16 @@ public class HttpClient {
                     }
                 }
                 if (!response.isSuccessful() || 200 != response.code()) {
-
-                    onResultListener.onErrorMsg("系统错误");
-//                    onResultListener.onError(response.code(), response.message());
-//                    if (response.code() == 500){
-//                        try {
-//                            onResultListener.onErrorMsg(DataParseUtil.parseObject(response.errorBody().string()).getMessage());
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }else{
-//                        onResultListener.onError(response.code(), response.message());
-//                    }
+                    onResultListener.onError(response.code(), response.message());
+                    if (response.code() == 500){
+                        try {
+                            onResultListener.onErrorMsg(DataParseUtil.parseObject(response.errorBody().string()).getMessage());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        onResultListener.onError(response.code(), response.message());
+                    }
                 }
                 if (null != builder.tag) {
                     removeCall(builder.url);
@@ -249,9 +244,22 @@ public class HttpClient {
 
 
     /**
+     * 取消某个界面都所有请求
+     */
+    public synchronized void cancelAll() {
+        synchronized (CALL_MAP) {
+            for (String key : CALL_MAP.keySet()) {
+                Log.d("cancelAll","keySet: "+key);
+                CALL_MAP.get(key).cancel();
+                removeCall(key);
+            }
+        }
+    }
+
+    /**
      * 取消某个界面都所有请求，或者是取消某个tag的所有请求;
      * 如果要取消某个tag单独请求，tag需要传入tag+url
-     *
+     * 只传入Tag也可以取消请求;
      * @param tag 请求标签
      */
     public synchronized void cancel(Object tag) {

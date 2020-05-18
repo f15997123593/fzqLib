@@ -30,4 +30,18 @@
         <item name="android:windowBackground">@color/color_bg</item>
     </style>
 
+    <style name="BaseStyleableToast">
+        <item name="stLength">SHORT</item>
+    </style>
+
+    <style name="ColoredStroke" parent="BaseStyleableToast">
+        <item name="stStrokeWidth">2dp</item>
+        <item name="stStrokeColor">#ff00</item>
+    </style>
+
+    <style name="ColoredBackground" parent="BaseStyleableToast">
+        <item name="stColorBackground">#FF5A5F</item>
+    </style>
+
+
 </resources>
