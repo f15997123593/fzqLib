@@ -125,8 +125,13 @@ public class HttpClient {
 
             if(builder.body!=null){
                 //提交body
-                mCall = retrofit.create(ApiService.class)
-                        .executePost(builder.url,builder.authorization,builder.language,builder.body);
+                if (StringUtils.isEmpty(builder.language)){
+                    mCall = retrofit.create(ApiService.class)
+                            .executePost(builder.url,builder.authorization,builder.body);
+                }else{
+                    mCall = retrofit.create(ApiService.class)
+                            .executePost(builder.url,builder.authorization,builder.language,builder.body);
+                }
             } else if(builder.bodyPart!=null&&builder.fileType!=null&&builder.bucketName!=null){
                 mCall = retrofit.create(ApiService.class)
                         .shjUploadFile(builder.url,builder.authorization,builder.bodyPart,builder.fileType,builder.bucketName);
@@ -136,9 +141,15 @@ public class HttpClient {
                 mCall = retrofit.create(ApiService.class)
                         .uploadFile(builder.url,builder.authorization,builder.description,builder.bodyPart);
             } else{
-                //标准form表单提交
-                mCall = retrofit.create(ApiService.class)
-                        .executePost(builder.url,builder.authorization,builder.language,builder.params);
+                if (StringUtils.isEmpty(builder.language)){
+                    //标准form表单提交
+                    mCall = retrofit.create(ApiService.class)
+                            .executePost(builder.url,builder.authorization,builder.params);
+                }else{
+                    //标准form表单提交
+                    mCall = retrofit.create(ApiService.class)
+                            .executePost(builder.url,builder.authorization,builder.language,builder.params);
+                }
             }
         }else{
             //无请求头
@@ -175,7 +186,12 @@ public class HttpClient {
             builder.url(StringUtils.buffer(builder.url, "?", value));
         }
         if (builder.authorization!=null){
-            mCall = retrofit.create(ApiService.class).executeGet(builder.url,builder.authorization,builder.language);
+            if (StringUtils.isEmpty(builder.language)){
+                mCall = retrofit.create(ApiService.class).executeGet(builder.url,builder.authorization);
+            }else {
+                mCall = retrofit.create(ApiService.class).executeGet(builder.url,builder.authorization,builder.language);
+            }
+
         }else{
             mCall = retrofit.create(ApiService.class).executeGet(builder.url);
         }
@@ -304,7 +320,7 @@ public class HttpClient {
      */
     public static final class Builder {
         private String builderBaseUrl = "";
-        private String language = "zh_CN";
+        private String language = "";
         private String url;
         private String authorization;
         private Object tag;

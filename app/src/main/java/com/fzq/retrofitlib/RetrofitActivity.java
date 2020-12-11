@@ -44,7 +44,6 @@ public class RetrofitActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 requestLogin();
-//                requsetPostBean();
                 requsetUploadFile();
             }
         });
@@ -56,6 +55,7 @@ public class RetrofitActivity extends AppCompatActivity {
                 .url("uac/auth/form")
                 .showLog(true)
                 .addHeader("Basic Y21ueS1jbGllbnQtdWFjOmNtbnlDbGllbnRTZWNyZXQ=")
+                .addLanguage("ja_JP")
                 .params("username","LIFECS")
                 .params("password","123456")
                 .bodyType(DataType.JSON_OBJECT, LoginJsonBean.class)
