@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/cameralib" />
+            <option value="$PROJECT_DIR$/paylib" />
             <option value="$PROJECT_DIR$/retrofitmanager" />
             <option value="$PROJECT_DIR$/takephoto_library" />
             <option value="$PROJECT_DIR$/utillib" />

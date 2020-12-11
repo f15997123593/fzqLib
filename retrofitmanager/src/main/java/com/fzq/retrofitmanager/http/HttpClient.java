@@ -39,9 +39,6 @@ import retrofit2.Retrofit;
 public class HttpClient {
 
     /*The certificate's password*/
-    private static final String STORE_PASS = "6666666";
-    private static final String STORE_ALIAS = "666666";
-    /*用户设置的BASE_URL*/
     //如果设置了BASE_URL 可以不用使用baseUrl
     private static String BASE_URL = "";
     /*本地使用的baseUrl*/
@@ -120,22 +117,28 @@ public class HttpClient {
         }
     }
 
+
     public void post(final OnResultListener onResultListener) {
         Builder builder = mBuilder;
         //添加请求头的情况
         if (builder.authorization!=null){
+
             if(builder.body!=null){
                 //提交body
                 mCall = retrofit.create(ApiService.class)
-                        .executePost(builder.url,builder.authorization,builder.body);
-            }else if (builder.bodyPart!=null&&builder.description!=null){
+                        .executePost(builder.url,builder.authorization,builder.language,builder.body);
+            } else if(builder.bodyPart!=null&&builder.fileType!=null&&builder.bucketName!=null){
+                mCall = retrofit.create(ApiService.class)
+                        .shjUploadFile(builder.url,builder.authorization,builder.bodyPart,builder.fileType,builder.bucketName);
+            }
+            else if (builder.bodyPart!=null&&builder.description!=null){
                 //文件上传
                 mCall = retrofit.create(ApiService.class)
                         .uploadFile(builder.url,builder.authorization,builder.description,builder.bodyPart);
             } else{
                 //标准form表单提交
                 mCall = retrofit.create(ApiService.class)
-                        .executePost(builder.url,builder.authorization,builder.params);
+                        .executePost(builder.url,builder.authorization,builder.language,builder.params);
             }
         }else{
             //无请求头
@@ -172,7 +175,7 @@ public class HttpClient {
             builder.url(StringUtils.buffer(builder.url, "?", value));
         }
         if (builder.authorization!=null){
-            mCall = retrofit.create(ApiService.class).executeGet(builder.url,builder.authorization);
+            mCall = retrofit.create(ApiService.class).executeGet(builder.url,builder.authorization,builder.language);
         }else{
             mCall = retrofit.create(ApiService.class).executeGet(builder.url);
         }
@@ -301,6 +304,7 @@ public class HttpClient {
      */
     public static final class Builder {
         private String builderBaseUrl = "";
+        private String language = "zh_CN";
         private String url;
         private String authorization;
         private Object tag;
@@ -308,6 +312,8 @@ public class HttpClient {
         private RequestBody body;
         private MultipartBody.Part bodyPart;
         private RequestBody description;
+        private MultipartBody.Part fileType;
+        private MultipartBody.Part bucketName;
         private Map<String, String> params = new HashMap<>();
         /*返回数据的类型,默认是string类型*/
         @DataType.Type
@@ -382,12 +388,6 @@ public class HttpClient {
 
         //文件上传
         public Builder upload(File file){
-            upload(file,"File","File");
-            return this;
-        }
-
-        //上传文件
-        public Builder upload(File file,String name,String fileDes){
             if (file==null){
                 throw new UnsupportedOperationException("u can't upload null file");
             }
@@ -395,18 +395,19 @@ public class HttpClient {
             if (FileTypeUtils.fileType(file.getName()) == FileTypeUtils.FileType.None){
                 throw new UnsupportedOperationException("u can't upload null file");
             }else if (FileTypeUtils.fileType(file.getName()) == FileTypeUtils.FileType.Doc){
-                upload(file,"text/plain",name,fileDes);
+                upload(file,"text/plain","File","File");
             }else if (FileTypeUtils.fileType(file.getName()) == FileTypeUtils.FileType.Pic){
-                upload(file,"image/*",name,fileDes);
+                upload(file,"image/*","File","File");
             }else if (FileTypeUtils.fileType(file.getName()) == FileTypeUtils.FileType.Video){
-                upload(file,"application/octet-stream",name,fileDes);
+                upload(file,"application/octet-stream","File","File");
             }else if(FileTypeUtils.fileType(file.getName()) == FileTypeUtils.FileType.Music){
-                upload(file,"audio/*",name,fileDes);
+                upload(file,"audio/*","File","File");
             }else {
-                upload(file,"application/octet-stream",name,fileDes);
+                upload(file,"application/octet-stream","File","File");
             }
             return this;
         }
+
 
         /**
          *  name 是
@@ -422,6 +423,18 @@ public class HttpClient {
             MultipartBody.Part body = MultipartBody.Part.createFormData(name, file.getName(), requestFile);
             this.description = description;
             this.bodyPart = body;
+            return this;
+        }
+
+        public Builder upload(File file,String fileType,String bucketName){
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+            MultipartBody.Part upFileType = MultipartBody.Part.createFormData("fileType",fileType);
+            MultipartBody.Part upBucketName = MultipartBody.Part.createFormData("bucketName",bucketName);
+            this.fileType = upFileType;
+            this.bucketName = upBucketName;
+            this.bodyPart = body;
+
             return this;
         }
 
@@ -459,6 +472,11 @@ public class HttpClient {
          */
         public Builder addHeader(String authorization){
             this.authorization = authorization;
+            return this;
+        }
+
+        public Builder addLanguage(String language){
+            this.language = language;
             return this;
         }
 

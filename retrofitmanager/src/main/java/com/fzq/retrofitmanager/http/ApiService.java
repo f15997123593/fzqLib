@@ -38,6 +38,8 @@ public interface ApiService {
     @GET
     Call<ResponseBody> executeGet(@Url String url, @Header("authorization") String authorization);
 
+    @GET
+    Call<ResponseBody> executeGet(@Url String url, @Header("authorization") String authorization,@Header("Accept-Language") String language);
 
 
     /**
@@ -55,11 +57,19 @@ public interface ApiService {
     @POST
     Call<ResponseBody> executePost(@Url String url, @Header("authorization") String authorization, @FieldMap Map<String, String> map);
 
+    @FormUrlEncoded
+    @POST
+    Call<ResponseBody> executePost(@Url String url, @Header("authorization") String authorization,@Header("Accept-Language") String language, @FieldMap Map<String, String> map);
+
     @POST
     Call<ResponseBody> executePost(@Url String url, @Body RequestBody info);
 
     @POST
     Call<ResponseBody> executePost(@Url String url, @Header("authorization") String authorization, @Body RequestBody info);
+
+    @POST
+    Call<ResponseBody> executePost(@Url String url, @Header("authorization") String authorization, @Header("Accept-Language") String language, @Body RequestBody info);
+
 
     /**
      * 单文件上传
@@ -80,5 +90,12 @@ public interface ApiService {
     @Multipart
     @POST
     Call<ResponseBody> uploadFile(@Url String url, @Part("description") RequestBody description, @Part MultipartBody.Part file);
+
+    @Multipart
+    @POST
+    Call<ResponseBody> shjUploadFile(@Url String url, @Header("authorization") String authorization, @Part MultipartBody.Part fileType,
+                                     @Part MultipartBody.Part bucketName, @Part MultipartBody.Part file);
+
+
 
 }

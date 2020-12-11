@@ -44,19 +44,20 @@ public class RetrofitActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 requestLogin();
-                requsetPostBean();
+//                requsetPostBean();
+                requsetUploadFile();
             }
         });
     }
 
     private void requestLogin() {
         HttpClient client = new HttpClient.Builder()
-                .baseUrl("http://192.168.1.100:7009/")
+                .baseUrl("http://47.114.138.11:7009/")
                 .url("uac/auth/form")
                 .showLog(true)
                 .addHeader("Basic Y21ueS1jbGllbnQtdWFjOmNtbnlDbGllbnRTZWNyZXQ=")
-                .params("username","godChis")
-                .params("password","Cc123456")
+                .params("username","LIFECS")
+                .params("password","123456")
                 .bodyType(DataType.JSON_OBJECT, LoginJsonBean.class)
                 .build();
         client.post(new OnResultListener<LoginJsonBean>(){
@@ -114,16 +115,18 @@ public class RetrofitActivity extends AppCompatActivity {
      * 文件上传 成功
      */
     private void requsetUploadFile() {
+        String token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJMSUZFQ1MiLCJzY29wZSI6WyJcIipcIiJdLCJsb2dpbk5hbWUiOiJMSUZFQ1MiLCJleHAiOjE2MDc2NzQ4ODcsImp0aSI6ImIzZDI2NzQ5LWY5NWQtNGJmMS05MTY2LTVhODZmMTM0YTIwYyIsImNsaWVudF9pZCI6ImNtbnktY2xpZW50LXVhYyIsInRpbWVzdGFtcCI6MTYwNzY2NzY4NzU0Nn0.V1Y3hP9g5aKb-r23gmz_nJWuJWkY1d36dTNugcSMQ54";
         String mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
         //在你本地SD卡根目录输出录音文件
-        mFileName += "/record.amr";
+        mFileName += "/crop_photo.jpg";
         File file = new File(mFileName);
         HttpClient client = new HttpClient.Builder()
-                .baseUrl("http://www.51cs8.com/NursingCloud/")
-                .url("Resource/ResourceAdd")
+                .baseUrl("http://47.114.138.11:7009/")
+                .url("opc/file/uploadFile")
                 .tag("upload")
-                .addHeader("24_a22270dd43a94f8eb09fb76bc86c7aeb")
-                .upload(file)
+                .addHeader(token)
+                .showLog(true)
+                .upload(file,"picture","cmny-oss")
                 .bodyType(DataType.JSON_OBJECT,MsgBean.class)
                 .build();
         client.post(new OnResultListener<MsgBean>(){

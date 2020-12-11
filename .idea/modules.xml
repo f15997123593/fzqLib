@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/MyLib.iml" filepath="$PROJECT_DIR$/MyLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/cameralib/cameralib.iml" filepath="$PROJECT_DIR$/cameralib/cameralib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/paylib/paylib.iml" filepath="$PROJECT_DIR$/paylib/paylib.iml" />
       <module fileurl="file://$PROJECT_DIR$/retrofitmanager/retrofitmanager.iml" filepath="$PROJECT_DIR$/retrofitmanager/retrofitmanager.iml" />
       <module fileurl="file://$PROJECT_DIR$/takephoto_library/takephoto_library.iml" filepath="$PROJECT_DIR$/takephoto_library/takephoto_library.iml" />
       <module fileurl="file://$PROJECT_DIR$/utillib/utillib.iml" filepath="$PROJECT_DIR$/utillib/utillib.iml" />
