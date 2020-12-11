@@ -320,7 +320,7 @@ public class HttpClient {
      */
     public static final class Builder {
         private String builderBaseUrl = "";
-        private String language = "";
+        private String language = "zh_CN";
         private String url;
         private String authorization;
         private Object tag;
